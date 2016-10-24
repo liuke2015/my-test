@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>三角提示按钮</title>
+		<style type="text/css">
+		*{box-sizing: border-box;}
+		.triangle-btn{
+			position:absolute;
+			top:20px;left:50px;
+			padding-top:5px;
+			width:24px;
+			height:24px;
+			background: #fff;
+			box-shadow: 0 1px 3px 0 rgba(0,0,0,.3);
+			-webkit-box-shadow: 0 1px 3px 0 rgba(0,0,0,.3);
+			border-radius: 50%;
+			-webkit-border-radius: 50%;
+			text-align: center;
+		}
+		.line{
+			position:absolute;
+			top:-15px;
+			left:50%;
+			margin-left:-1px;
+			width:2px;
+			height:15px;
+			background:#fff;
+			box-shadow: 0 0 3px 0 rgba(0,0,0,.3);
+			-webkit-box-shadow: 0 0 3px 0 rgba(0,0,0,.3);
+		}
+		.triangle{
+                   /* width:0;
+                    height:0;
+                    overflow:hidden;
+  
+                    border-width:10px;
+                    border-color:transparent transparent red transparent;
+                    border-style:dashed dashed solid dashed;//为了在IE6下兼容，只有有颜色的那个方向是solid,其他方向都是dashed*/
+                   width:10px;
+                   height:10px;
+                   display:block;
+                   border-right:1px solid #999;
+                   border-bottom:1px solid #999;
+                   transform: rotate(45deg);
+                   -webkit-transform: rotate(45deg);
+                   margin:0 auto;
+                  }
+		</style>
+	</head>
+	<body>
+		<div class="triangle-btn">
+			<div class="line"></div>
+			<span class="triangle"></span>
+		</div>
+	</body>
+</html>
