@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>PC数据输入</title>
+		<script src = "https://cdn.wilddog.com/sdk/js/2.0.0/wilddog-auth.js"></script>
+	    <script src = "https://cdn.wilddog.com/sdk/js/2.0.0/wilddog-sync.js"></script>
+        <script src="https://cdn.wilddog.com/js/vendor/jquery-1.11.2.min.js"></script>
+	</head>
+	<body>
+		<input id="text-in" type="text" placeholder="请在此处输入信息" />
+		<button id="btn-sub">点击发送</button>
+		<button id="btn-del">刪除多余列表</button>
+		<script>
+			var config={
+				authDomain:"sstx1.wilddog.com",
+				syncURL:"https://sstx1.wilddogio.com"
+			};
+			wilddog.initializeApp(config);
+			var ref=wilddog.sync().ref();
+			var $inputBox=$("#text-in"),
+			    $btn=$("#btn-sub"),
+			    $del=$("#btn-del");
+			
+			$btn.click(function(){
+				var text=$inputBox.val();
+				ref.child("messageList").push(text);
+				$inputBox.val("");
+			});
+			$inputBox.keypress(function(event){
+				if(event.keyCode=="13"){
+					$btn.trigger("click");
+				}
+			})
+			$del.click(function(){
+				ref.child("list").remove();
+			})
+			
+		</script>
+	</body>
+</html>

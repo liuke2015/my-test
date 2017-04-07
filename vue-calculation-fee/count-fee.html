@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>计算餐费</title>
+		<style>
+        [v-cloak]{
+            display: none;
+        }
+        table,td,th{border-collapse: collapse;}
+        td,th{padding:5px;border:1px solid #666;}
+        .req{border:2px solid #00CCFF}
+        button{margin-top:20px;}
+    </style>
+	</head>
+	<body id="area">
+		<table v-cloak border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<th>姓名</th>
+				<th>选餐费用</th>
+				<th>优惠费用</th>
+				<th>最后需支付费用</th>
+			</tr>
+			<tr v-for="per in person">
+					<td>{{per.name}}</td>
+					<td><input class="req" type="text" v-model="per.fee"/></td>
+					<td><input type="text" v-model="per.hui"/></td>
+					<td><input type="text" v-model="per.last"/></td>
+			</tr>
+			<tr>
+				<td>合计费用</td>
+				<td colspan="3">
+					<input type="text" v-model="total"/>
+				</td>
+			</tr>
+			<tr>
+				<td>餐盒费</td>
+				<td colspan="3">
+					<input class="req" type="text" v-model="lunchBox"/>
+				</td>
+			</tr>
+			<tr>
+				<td>配送费</td>
+				<td colspan="3">
+					<input class="req" type="text" v-model="distributionCost"/>
+				</td>
+			</tr>
+			<tr>
+				<td>优惠费用</td>
+				<td colspan="3">
+					<input class="req" type="text" v-model="discount"/>
+				</td>
+			</tr>
+			<tr>
+				<td>最后合计优惠费用</td>
+				<td colspan="3">
+					<input type="text" v-model="totalDiscount"/>
+				</td>
+			</tr>
+		</table>
+		<button @click="count">计算</button>
+		<script src="js/vue.js"></script>
+		<script>
+		var vm = new Vue({
+			 el:'#area',
+			 data:{
+            	person:[{name:"王娜",fee:0,hui:0,last:0},
+            		{name:"刘珂",fee:0,hui:0,last:0},
+           			{name:"张鑫佳",fee:0,hui:0,last:0},
+            		{name:"王凯",fee:0,hui:0,last:0}],
+           		total:0,
+            	lunchBox:0,
+            	distributionCost:0,
+           	 	discount:0,
+           		totalDiscount:null
+        	},
+        	methods:{
+        		count:function(){        			
+        			var tot=0,_this=this,flag=true;
+        			this.person.forEach(function(item,index){
+        				if(item.fee==0){
+        					alert("请输入"+item.name+"的餐费");
+        					return;
+        				}
+        				tot+=parseFloat(item.fee);
+        			});
+        		
+        			this.total=tot;    
+        			var feeOther=parseFloat(this.lunchBox)+parseFloat(this.distributionCost),
+        				huiOther=parseFloat(this.discount);
+        				
+        			this.totalDiscount=Number(huiOther-feeOther).toFixed(2);
+        			flag=this.totalDiscount > 0 ? true : false;
+        		    
+        			this.person.forEach(function(item,index){
+        				var hui=0;
+        				if(flag){
+        					hui=(parseFloat(item.fee)/parseFloat(_this.total))*parseFloat(_this.totalDiscount);
+        					item.hui=hui.toFixed(2)
+        					item.last=(parseFloat(item.fee)-parseFloat(item.hui)).toFixed(2);
+        				}else{
+        					hui=-(_this.totalDiscount/_this.person.length);
+        					item.hui=hui.toFixed(2)
+        					item.last=(parseFloat(item.fee)+parseFloat(item.hui)).toFixed(2);
+        				}
+        			})
+        		}
+     	   }
+		});
+</script>
+	</body>
+</html>

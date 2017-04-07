@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>appShowList</title>
+		<script src = "https://cdn.wilddog.com/sdk/js/2.0.0/wilddog-auth.js"></script>
+	    <script src = "https://cdn.wilddog.com/sdk/js/2.0.0/wilddog-sync.js"></script>
+        <script src="https://cdn.wilddog.com/js/vendor/jquery-1.11.2.min.js"></script>
+	</head>
+	<body>
+		<ul id="messageList"></ul>
+		<script>
+			var config={
+				authDomain:"sstx1.wilddog.com",
+				syncURL:"https://sstx1.wilddogio.com"
+			};
+			wilddog.initializeApp(config);
+			var ref=wilddog.sync().ref(),
+			arr=[],
+			$list=$("#messageList");
+			ref.child("messageList").on("child_added",function(snapshot){
+				var text=snapshot.val();
+				arr.push(text);
+				var textObj="<li>"+ text +"</li>";
+				$list.append(textObj);
+			})
+		</script>
+	</body>
+</html>
