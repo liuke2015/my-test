@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="sample">
+  <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script> <script type="text/javascript">
+//<![CDATA[
+        bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+  //]]>
+  </script>
+  <!--<h4>
+    First Textarea
+  </h4>
+  <textarea name="area1" cols="40">
+</textarea><br />
+  <h4>
+    Second Textarea
+  </h4>
+  <textarea name="area2" style="width: 100%;">
+       Some Initial Content was in this textarea
+</textarea><br />-->
+  <h4>
+    Third Textarea
+  </h4>
+  <textarea class="textarea3" name="area3" style="width: 300px; height: 100px;"></textarea>
+<button id="getValue">获取内容</button>
+<script type="text/javascript">
+	document.getElementById("getValue").onclick=function(){
+		var edit=document.getElementsByClassName("nicEdit-main")[0],
+        str=edit.innerHTML;
+        console.log(str);
+	}
+</script>
+</div>
+	</body>
+</html>
