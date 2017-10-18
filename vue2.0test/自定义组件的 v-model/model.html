@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>自定义组件的 v-model</title>
+		<script src="../vue-js/vue.js"></script>
+	</head>
+	<body>
+		<script type="text/x-template" id="model-template">
+			<div class="input-box">
+				<input type="text" v-model="curName">
+			    <label for="">{{curName}}</label>
+			</div>			
+		</script>
+		<div id="box">
+			<my-checkbox v-for="(val,key) in dataList" v-model="dataList[key]"></my-checkbox>
+			<button @click="showValue">打印结果</button>
+		</div>
+		<script src="model.js"></script>
+	</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body id="area">
+		<textarea id="tare1" name="" rows="" cols="" ></textarea>		
+		<textarea id="tare2" name="" rows="" cols="" ></textarea>
+		<input type="button" name="" id="" @click="sub" value="提交"/>
+		<script src="../js/vue.js"></script>
+		<script>
+		var vm = new Vue({
+			 el:'#area',
+			 data:{
+            	con:""
+        	},
+        	methods:{
+        		sub:function(){
+        			var curTextarea=document.getElementById("tare2");
+        			console.log(curTextarea.value);
+        		}
+        		 }
+		});
+</script>
+	</body>
+</html>

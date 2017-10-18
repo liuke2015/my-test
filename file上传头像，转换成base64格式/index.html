@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.line{height:150px;position: relative;}
+			#img-box{
+    width:50px;
+    height:50px;
+    border:1px solid #eee;
+    border-radius: 50%;
+    overflow:hidden;
+    margin-left:5px;
+    background-position:50% 50%;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+    background-image: url("../../../images/nopic.jpg");
+    background-repeat: no-repeat;
+}
+	
+			/*上传按钮*/
+.a-upload {
+    position:absolute;
+    right:40px;
+    top:50%;
+    transform:translateY(-50%);
+    -webkit-transform:translateY(-50%);
+    font-size:14px;
+    padding: 0;
+    height: 20px;
+    line-height: 20px;
+    cursor: pointer;
+    color: #000;
+    overflow: hidden;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    margin:0
+}
+
+.a-upload  input {
+    position: absolute;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer
+}
+	</style>
+	</head>
+	<body>
+	<div class="line">
+		 <div id="img-box" class="mui-pull-left "></div>
+		 <a href="javascript:;" class="a-upload">		 	
+             <input type="file" id="imgTest" type="file" accept="image/*">修改头像
+              <!--<input type="file" id="imgTest" type="file" @change="imgChange($event)" accept="image/*">修改头像-->
+         </a>
+	</div>
+	   
+		<script>
+			document.getElementById("imgTest").addEventListener("change",function(e){
+				var reader = new FileReader(),
+				imgBox = document.getElementById("img-box")
+                reader.onload = (function (file) {
+                    return function (e) {
+                        imgBox.style.backgroundImage = "url(" + this.result + ")";//这个就是base64的数据了
+                        console.info("base64:" + this.result); //这个就是base64的数据了
+                    };
+                })(e.target.files[0]);
+                reader.readAsDataURL(e.target.files[0]);
+			})
+			
+		</script>
+	</body>
+</html>
