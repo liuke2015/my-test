@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上传头像</title>
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<div id="imgCrop" style="width:200px;height:200px;border:1px solid #ccc;overflow:hidden;">
+	    <img src="img/test.jpg" alt="">
+	</div>
+	<input type="file" accept="image/*" />
+	<button id="save">保存</button>
+	<p>下面为剪切的图片:</p>
+	<div id="imgShow"></div>
+	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="js/my-cropper.js"></script>
+</body>
+</html>

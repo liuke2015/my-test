@@ -6,23 +6,117 @@
 		<meta name="renderer" content="webkit">
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
-        <style>
-            #imgCrop{
+               <style>
+        <link rel="stylesheet" href="css/cropper.css">
+    .container {
+      max-width: 640px;
+      margin: 20px auto;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    /* Override Cropper's styles */
+    .cropper-view-box,
+    .cropper-face {
+      border-radius: 50%;
+    }
+           /* #imgCrop{
                 width:200px;height:200px;border:1px solid #ccc;overflow: hidden;
             }
-            #imgShow img{width:200px;height:200px;border:1px solid #f00}
+            #imgShow img{width:200px;height:200px;border:1px solid #f00}*/
         </style>
 	</head>
 	<body>
-		<div id="imgCrop">  
-            <img src="images/1.jpg" alt=""/>  
+		<!--<div id="imgCrop">  
+            <img src="images/1.jpg" alt=""/>
         </div>  
         <input type="file" accept="image/*" />  
         <button id="save">保存</button>  
         <p>下面为剪切的图片:</p>  
         <div id="imgShow"></div>
-       <canvas id="my-canvas" width="" height=""></canvas>
+       <canvas id="my-canvas" width="" height=""></canvas>-->
+       
+       
+       <div class="container">
+		    <h1>Crop a round image</h1>
+		    <h3>Image</h3>
+		    <div>
+		      <img id="image" src="images/book2.jpg" alt="Picture">
+		    </div>
+		    <h3>Result</h3>
+		    <button type="button" id="button">Crop</button>
+		    <div id="result"></div>
+	  </div>
         <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-        <script type="text/javascript" src="js/img-corrper.js"></script>
+        <script type="text/javascript" src="js/cropper.js"></script>
+        <script>
+        	/*$("input").on("change", function () {
+			    var fr = new FileReader();
+			    var file = this.files[0]
+			    //console.log(file);   
+			    if (!/image\/\w+/.test(file.type)) {
+			        alert(file.name + "不是图片文件！");
+			        return;
+			    }
+			    fr.readAsDataURL(file);
+			
+			    fr.onload = function () {
+			        $('#image')[0].src = fr.result;
+			    };
+
+     });*/
+    function getRoundedCanvas(sourceCanvas) {
+      var canvas = document.createElement('canvas');
+      var context = canvas.getContext('2d');
+      var width = sourceCanvas.width;
+      var height = sourceCanvas.height;
+
+      canvas.width = width;
+      canvas.height = height;
+      context.beginPath();
+      context.arc(width / 2, height / 2, Math.min(width, height) / 2, 0, 2 * Math.PI);
+      context.strokeStyle = 'rgba(0,0,0,0)';
+      context.stroke();
+      context.clip();
+      context.drawImage(sourceCanvas, 0, 0, width, height);
+
+      return canvas;
+    }
+
+    $(function () {
+      var $image = $('#image');
+      var $button = $('#button');
+      var $result = $('#result');
+      var croppable = false;
+
+      $image.cropper({
+        aspectRatio: 1,
+        viewMode: 1,
+        ready: function () {
+          croppable = true;
+        }
+      });
+
+      $button.on('click', function () {
+        var croppedCanvas;
+        var roundedCanvas;
+
+        if (!croppable) {
+          return;
+        }
+
+        // Crop
+        croppedCanvas = $image.cropper('getCroppedCanvas');
+
+        // Round
+        roundedCanvas = getRoundedCanvas(croppedCanvas);
+
+        // Show
+        $result.html('<img src="' + roundedCanvas.toDataURL() + '">');
+      });
+    });
+  </script>
 	</body>
 </html>
