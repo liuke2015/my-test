@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="css/cropper.min.css" />
+        <link rel="stylesheet" href="css/mui.min.css" />
+        <style>
+            #redo{
+                position: fixed;
+                bottom: 20px;
+                left :20px;
+                font-size: 30px;
+            }
+            #undo{
+                position: fixed;
+                bottom: 20px;
+                right :20px;
+                font-size: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="mui-bar mui-bar-nav blueBackground">
+          <h1 id="patientId" class="mui-title">截取头像</h1>
+          <a id="save" style="vertical-align: middle;color:#8dc14f;line-height:2.5em;" class="mui-pull-right"><span>保存</span></a>
+        </header>
+        <div style="" class="mui-content">
+            <div style="">
+                <img style="width: 98%;" id="image" src="">
+            </div>
+            <button id="redo" type="button" class="mui-btn mui-btn-danger mui-btn-outlined mui-pull-left"><span class="mui-icon mui-icon-redo"></span></button>
+            <button id="undo" type="button" class="mui-btn mui-btn-danger mui-btn-outlined mui-pull-right"><span class="mui-icon mui-icon-undo"></button>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+        <script type="text/javascript" src="js/mui.js"></script>
+        <script type="text/javascript" src="js/cropper.js" ></script>
+        <script>
+            var image = document.getElementById('image');
+            var cropper = null;
+            var resImg = null;
+            //在选择或者拍摄完成后跳出裁剪页面并把图片路径传递到此页面
+            //image.src = plus.webview.currentWebview().imgSrc;
+            image.src = "images/4.png";
+            initCropper();
+            document.getElementById("save").addEventListener("tap",getImg);
+            document.getElementById("redo").addEventListener("tap",function(){
+                cropper.rotate(90);
+            });
+            document.getElementById("undo").addEventListener("tap",function(){
+                cropper.rotate(-90);
+            });
+            function initCropper(){
+                cropper = new Cropper(image, {
+                    aspectRatio: 1/1,
+                    dragMode:'move',
+                    rotatable:true,
+                    minCropBoxWidth:200,
+                    minCropBoxHeight:200,
+                    minCanvasWidth:200,
+                    minCanvasHeight:200,
+                    minContainerWidth:200,
+                    minContainerHeight:200,
+                    crop: function(data) {
+                     }
+                });
+            }
+            function getImg(){
+                resImg =  cropper.getCroppedCanvas({
+                      width: 200,
+                      height: 200
+                }).toDataURL();
+                console.log(resImg)
+                //裁剪完毕后将新的图片路径传递到需要显示的页面即可显示 结果为base64格式
+                //mui.fire(plus.webview.getWebviewById("personalInfoPage"),"cropperImg",{resImg:resImg});
+                //mui.back();
+            }
+
+        </script>
+    </body>
+</html>

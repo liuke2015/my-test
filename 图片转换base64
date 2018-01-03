@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		 <div class="mui-input-row">
+                    <label>测试22input11</label>
+                    <input type="file" accept="image/*" id="cameraInput" name="cameraInput">
+                    <button onclick="">转换</button>
+         </div>
+		<script>
+    function getBase64Image(img) {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+
+        var dataURL = canvas.toDataURL("image/png");
+        return dataURL
+
+        // return dataURL.replace("data:image/png;base64,", "");
+    }
+
+
+    function changeImg(imgSrc) {
+        var img = document.createElement('img');
+        img.onload =function() {
+            var data = getBase64Image(img);
+            console.log(data);
+        }
+        img.src = imgSrc;
+        document.body.appendChild(img);
+    }
+    function start(){
+    	 var titImg=document.getElementById("cameraInput").value;
+             changeImg(titImg)
+             console.log(titImg);
+    }
+</script>
+	</body>
+</html>
