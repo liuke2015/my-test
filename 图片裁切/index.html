@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+  <title>Cropper</title>
+  <link rel="stylesheet" href="css/cropper.css">
+  <style>
+  	*{
+  		padding:0;margin:0;
+  	}
+  	.img-container {
+  		 float:left;
+       margin-bottom: 1rem;
+       width:500px;
+       height:200px;
+    }
+    .img-preview {
+        float: left;
+			  margin-bottom: .5rem;
+			  margin-right: .5rem;
+			  overflow: hidden;
+			}
+
+			.img-preview > img {
+			  max-width: 100%;
+			}
+			
+			.preview-lg {
+			  height: 9rem;
+			  width: 16rem;
+			}
+			.fr{
+					float:left;
+			}
+			#result{
+			
+				border:1px solid #f00;
+				width:300px;		
+				height:200px;		
+				overflow: hidden;
+			}
+			#result img{
+				display: block;
+				max-width: 100%;
+			}
+  </style>
+</head>
+<body>
+   <div class="img-container">
+      <img id="image" src="images/picture.jpg" alt="Picture">
+  </div>
+  <div class="img-preview preview-lg"></div>
+  <div class="fr">
+  	<h3>Result</h3>
+  	<button type="button" id="button">Crop</button>
+  	  <div id="result"></div>
+  </div>
+  
+  
+
+    
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="js/cropper.js"></script>
+  <script type="text/javascript">
+  	var $image = $('#image');
+  	var $button = $('#button');
+    var $result = $('#result');
+  
+    $image.cropper({
+         aspectRatio: 16 / 9,
+         viewMode: 1,
+       /*  maxContainerWidth: 500,
+         minContainerHeight: 200,*/
+         preview: '.img-preview'
+    });
+    
+    $button.on('click', function () {
+        var croppedCanvas;
+       
+        croppedCanvas = $image.cropper('getCroppedCanvas');       
+        $result.html('<img src="' + croppedCanvas.toDataURL() + '">');
+
+        console.log("111croppedCanvas:",croppedCanvas);
+        console.log("222croppedCanvas.toDataURL():",croppedCanvas.toDataURL());
+       
+      });
+  </script>
+</body>
+</html>

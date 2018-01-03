@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		 <div class="mui-input-row"><br />
+		 <form action="">
+		 	 <label>测试22input11</label>
+		 	 <input type="file" id="imgTest" type="file" onchange="imgChange(event)" accept=".gif,.jpg,.jpeg,.png">
+		 	 <img id="showImage"/>
+            <!-- <input type="file" accept="image/*" id="cameraInput" name="cameraInput">
+             <input type="submit" />-->
+		 </form>
+         </div>
+		<script>
+			function imgChange(e) {
+			    console.info(e.target.files[0]);//图片文件
+			    var dom =document.getElementById("imgTest");
+			    console.info(dom.value);//这个是文件的路径 C:\fakepath\icon (5).png
+			    console.log(e.target.value);//这个也是文件的路径和上面的dom.value是一样的
+			    var reader = new FileReader();
+			    reader.onload = (function (file) {
+			        return function (e) {
+			           console.info(this.result); //这个就是base64的数据了
+			            var sss=document.getElementById("showImage");
+			            sss.src=this.result;
+			        };
+		    })(e.target.files[0]);
+		    reader.readAsDataURL(e.target.files[0]);
+    }
+    /*function getBase64Image(img) {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+
+        var dataURL = canvas.toDataURL("image/png");
+        return dataURL
+
+        // return dataURL.replace("data:image/png;base64,", "");
+    }
+*/
+
+   /* function changeImg(imgSrc) {
+        var img = document.createElement('img');
+        img.onload =function() {
+            var data = getBase64Image(img);
+            console.log(data);
+        }
+        img.src = imgSrc;
+        document.body.appendChild(img);
+    }
+    function start(){
+    	 var titImg=document.getElementById("cameraInput").value;
+             changeImg(titImg)
+             console.log(titImg);
+    }*/
+</script>
+	</body>
+</html>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+</html>
