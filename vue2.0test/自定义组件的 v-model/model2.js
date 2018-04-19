@@ -22,7 +22,7 @@ Vue.component('my-checkbox',{
 var vm=new Vue({
 	el:"#box",
 	data:{
-		dataList:[{"check":false,"hobby":"游泳"},{"check":false,"hobby":"跑步"},{"check":false,"hobby":"瑜伽"}]
+		dataList:[{"check":true,"hobby":"游泳"},{"check":false,"hobby":"跑步"},{"check":false,"hobby":"瑜伽"}]
 	},
 	methods:{
 		showValue:function(){
