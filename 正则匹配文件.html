@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function test(){
+				console.log("111111111111111");
+				var regImg = /\.(png|jpg|jpeg|gif|bmp|tif|psd|cdr)$/i,
+			regDoc = /\.(doc|docx|xls|xlsx|pdf|ppt|pptx|txt)$/i,
+			regMui = /\.(mp4|avi|mp3|rmvb|flv|rm|wmv|swf)$/i,
+			regOther = /\.(rar|zip|exe|html|001|002)$/i;
+        var name = "1.002", size = 100, flag = false;//flag为true，符合格式要求
+        if (!flag && regImg.test(name)) {
+          flag=true;
+          console.log("图片");
+        }
+        if (!flag && regDoc.test(name)) {
+          flag=true;
+console.log("文档");
+        }
+        if (!flag && regMui.test(name)) {
+          flag=true;
+console.log("音频");
+        }
+        if (!flag && regOther.test(name)) {
+          flag=true;
+console.log("其他");
+        }
+if(!flag){
+console.log("格式不合适");
+}
+        if(flag && size<1024){
+          console.log("大小合适");
+        }else{
+          console.log("大小不合适");
+        }
+			}
+			test();
+		</script>
+	</body>
+</html>
