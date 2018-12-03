@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>一个使用 Velocity.js 的简单例子</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+		<script src="../vue-js/vue.js"></script>
+	</head>
+	<body>
+		<!--<div id="exmple4">
+			<button @click="show=!show">Toggle</button>
+			<transition 
+				v-on:before-enter="beforeEnter" 
+				v-on:enter="enter" 
+				v-on:leave="leave"
+				v-bind:css="false">
+				<p v-if="show">Toggle</p>
+			</transition>
+		</div>
+		<script>
+			new Vue({
+				el:"#exmple4",
+				data:{
+					show:false
+				},
+				methods:{
+					beforeEnter:function(el){
+						el.style.opacity=0;
+						el.style.transformOrigin="left";
+					},
+					enter:function(el,done){
+						Velocity(el,{opacity:1,fontSize:'1.4em'},{duration:300});
+						Velocity(el,{fontSize:'1em'},{complete:done})
+					},
+					leave:function(el,done){
+						Velocity(el,{translateX:'15px',rotateZ:'50deg'},{duration:600})
+						Velocity(el,{rotateZ:'100deg'},{loop:2})
+						Velocity(el,{
+							rotateZ:'45deg',
+							translateY:'30px',
+							translateX:'30px',
+							opcity:0
+						},{complete:done})
+					}
+				}
+			})
+		</script>
+	-->
+	<div id="example5">
+		<button @click="show=!show">Toggle</button>
+		<transition
+			v-on:before-enter="beforeEnter"
+			v-on:enter="enter"
+			v-on:leave="leave"
+			v-bind:css="false">
+			<p v-if="show">DEMO</p>
+		</transition>
+	</div>
+	<script>
+		new Vue({
+			el:"#example5",
+			data:{
+				show:false
+			},
+			methods:{
+				beforeEnter:function(el){
+					el.style.opacity=0;
+					el.style.transformOrigin="left";
+				},
+				enter:function(el,done){
+					Velocity(el,{opacity:1,fontSize:'1.4em'},{duration:200})
+					Velocity(el,{fontSize:'1em'},{complete:done})
+				},
+				leave:function(el,done){
+					Velocity(el,{translateX:15,rotateZ:90})
+					Velocity(el,'reverse',{delay:20},{complete:done})
+					/*Velocity(el,{translateX:'50px',rotateY:"0"},{duration:100})
+					Velocity(el,{rotateY:'180deg',translateY:"50px"},{loop:5})
+					Velocity(el,{rotateY:'45deg',translateX:"50px",translateY:"80px"},{complete:done})*/
+				}
+			}
+		})
+	</script>
+	</body>
+</html>

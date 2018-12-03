@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>v-if v-show</title>
+		<script src="../vue-js/vue.js"></script>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<div id="example-2">
+		  <!--错误写法-->
+		  <!--<ul>
+		  	<li v-for="user in users" v-if="user.isActive" :key="user.id">{{user.name}}</li>
+		  </ul>-->
+		  <!--正确写法-->
+		  <ul>
+		  	<li v-for="user in activeUsers" :key="user.id">{{user.name}}</li>
+		  </ul>
+		</div>
+		<script>
+			new Vue({
+			  el: '#example-2',
+			  data: {
+			    users:[
+			       {id:"01",name:"第一个",isActive:false},
+			       {id:"02",name:"第二个",isActive:true},
+			       {id:"03",name:"第三个",isActive:false},
+			       {id:"04",name:"第四个",isActive:true},
+			       {id:"05",name:"第五个",isActive:true},
+			    ]
+			  },
+			  computed:{
+			  	activeUsers:function(){			  	
+			  		let obj=this.users.filter(function(user){
+			  			console.log("user:"+user);
+			  			return user.isActive;
+			  		})
+			  		return obj;
+			  	}
+			  }
+			})
+		</script>
+	</body>
+</html>

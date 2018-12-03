@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>多个组件的过渡</title>
+		<script src="../vue-js/vue.js"></script>
+		<style>
+			.fade-component-enter-active,.fade-component-leave-active{
+				transition:opacity 0.3s ease;
+			}
+			.fade-component-enter,.fade-component-leave-to{
+				opacity:0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="component-box">
+			<input type="radio" value="a" name="component" v-model="curValue"/>A
+			<input type="radio" value="b" name="component" v-model="curValue"//>B
+			<transition name="fade-component" mode="out-in">
+				<component v-bind:is="view"></component>
+			</transition>
+		</div>	
+		<script>
+			new Vue({
+				el:"#component-box",
+				data:{
+					curValue:"a",
+					view:"v-a"
+				},
+				components:{
+					"v-a":{
+						template:"<div>componentA</div>"
+					},
+					"v-b":{
+						template:'<div>componentB</div>'
+					}
+				},
+				watch:{
+					curValue:function(val){
+						this.view='v-'+val;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

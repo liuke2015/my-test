@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>列表的排序过渡</title>
+		<script src="../vue-js/vue.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script>
+		<style>
+			.shuffle-list-move{
+				transition: transform 1s;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="list-demo">
+			<button @click="shuffle">Shuffle</button>
+			<transition-group name="shuffle-list" tag="ul">
+				<li v-for="item in itemList" :key="item">{{item}}</li>
+			</transition-group>
+		</div>
+		<script>
+			new Vue({
+				el:"#list-demo",
+				data:{
+					itemList:[1,2,3,4,5,6,7,8]
+				},
+				methods:{
+					shuffle:function(){
+						this.itemList=_.shuffle(this.itemList);
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

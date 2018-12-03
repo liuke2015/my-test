@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>列表的排序过渡2</title>
+		<script src="../vue-js/vue.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script>
+		<style>
+			.cur-item{transition:all 1s;display:inline-block;margin-right:10px;}
+			.list-demo-enter,.list-demo-leave-to{opacity:0;transform: translateY(30px);}
+			.list-demo-leave-active{position:absolute}
+		</style>
+	</head>
+	<body>
+		<div id="list-demo">
+			<button @click="shuffle">Shuffle</button>
+			<button @click="add">Add</button>
+			<button @click="remove">Remove</button>
+			<transition-group name="list-demo" tag="p">
+				<span v-for="item in itemList" v-bind:key="item" class="cur-item">{{item}}</span>
+			</transition-group>
+		</div>
+		<script>
+			new Vue({
+				el:"#list-demo",
+				data:{
+					itemList:[1,2,3,4,5,6,7,8,9],
+					numIndex:1
+				},
+				methods:{
+					curIndex:function(){
+						return Math.floor(this.itemList.length*Math.random());
+					},
+					shuffle:function(){
+						this.itemList=_.shuffle(this.itemList);
+					},
+					add:function(){
+						this.itemList.splice(this.curIndex(),0,this.numIndex++)
+					},
+					remove:function(){
+						this.itemList.splice(this.curIndex(),1)
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
