@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>组件上的v-model</title>
+    <script src="../vue-js/vue.js"></script>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<div id="example-2">
+    <!--自定义事件也可以用于创建支持 v-model 的自定义输入组件。记住：
+    <input v-model="searchText">
+    等价于
+    <input
+            v-bind:value="searchText"
+            v-on:input="searchText = $event.target.value"
+    >
+    当用在组件上时，v-model 则会这样：
+    <custom-input
+        v-bind:value="searchText"
+        v-on:input="searchText = $event"
+    ></custom-input>
+
+    -->
+    <custom-input v-model="searchText"></custom-input>
+</div>
+<script>
+    var customInput = {
+        props: ['value'],
+        template: '<input :value="value" v-on:input="$emit(\'input\', $event.target.value)" >'
+    }
+    new Vue({
+        el: '#example-2',
+        data: {
+            searchText: ""
+        },
+        watch: {
+            searchText: function (newVal, oldVal) {
+                console.log("监听到searchText=" + newVal);
+            }
+        },
+        components: {
+            customInput: customInput
+        }
+    })
+</script>
+</body>
+</html>
