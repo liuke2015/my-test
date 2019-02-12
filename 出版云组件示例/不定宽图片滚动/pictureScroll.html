@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>不定宽图片滚动</title>
+    <!-- 引入样式 element -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style lang="less" type="text/less">
+        #pictureScroll {
+            ul, li {
+                padding: 0;
+                margin: 0;
+            }
+            #img-wrap {
+                position: relative;
+                /* width: 100%; */
+                width: 1200px;
+                height: 165px;
+                overflow: hidden;
+                .el-button {
+                    position: absolute;
+                    top: 50%;
+                    margin-top: -20px;
+                    z-index: 99;
+                    background: rgba(0, 0, 0, 0.7);
+                    color: #fff;
+                    border: 0;
+                    border-radius: 0;
+                    padding: 20px 10px;
+                    &:nth-of-type(1) {
+                        left: 10px;
+
+                    }
+                    &:nth-of-type(2) {
+                        right: 10px;
+                    }
+                }
+                ul {
+                    position: absolute;
+                    left: 0;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    height: 165px;
+                    li {
+                        display: inline-block;
+                        padding-right: 10px;
+                        height: 165px;
+                        &:last-child {
+                            padding-right: 0;
+                        }
+                        img {
+                            height: 100%;
+                            width: auto;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="pictureScroll">
+    <!--轮播图-->
+    <div id="img-wrap" @mouseenter="showBtn=true" @mouseleave="showBtn=false" v-if="picList.length>0">
+        <transition name="el-fade-in-linear">
+            <el-button icon="el-icon-arrow-left" circle @click="prevClick" :title="isFirst?'已是第一张图片':''"
+                       v-if="showBtn"></el-button>
+        </transition>
+        <transition name="el-fade-in-linear">
+            <el-button icon="el-icon-arrow-right" circle @click="nextClick" :title="isLast?'已是最后一张图片':''"
+                       v-if="showBtn"></el-button>
+        </transition>
+        <ul id="morPicList">
+            <li v-for="(item,index) in picList" :key="index">
+                <img :src="'img/picDetailList'+index+'.jpg'"
+                     :onerror="loadImg('picDetailList'+index+'.jpg')">
+                <!-- <img :src="item.logo" :onerror="errorImg('ts.png')" :title="item.name" @click="toPage(item.code)">-->
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<!-- 开发环境版本，包含了有帮助的命令行警告 vue -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- 引入组件库 element-->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<!--在浏览器环境中使用 Less -->
+<!-- <link rel="stylesheet/less" type="text/css" href="styles.less" />-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.8.1/less.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+    new Vue({
+        el: "#pictureScroll",
+        data: {
+            picList: [
+                {}, {}, {}, {}, {}, {}, {}, {}, {}
+            ],//图片列表
+            curIndex: 0,//相关图片-当前显示的第一张图片的下标
+            curLeft: 0,//相关图片-当前显示的图片的left
+            picListWidth: 3000,//相关图片(ul#morPicList)的总宽度
+            limitLeft: 0,//(ul#morPicList)的宽度-1200
+            isFirst: true,//是否是第一张图片
+            isLast: false,//是否是最后一张图片
+            showBtn: false,//是否显示btn
+        },
+        mounted() {
+            this.picListWidth = $("#morPicList").outerWidth();
+            this.limitLeft = this.picListWidth - 1200;
+        },
+        methods: {
+            /*动态获取图片，测试用，有了数据后使用errorImg方法*/
+            loadImg(defaultImg) {
+                return 'this.src="img/' + defaultImg + '"';
+                /* return 'this.src="' + require('@assets/img/picDetail/' + defaultImg) + '"'*/
+            },
+            /*上一张图片*/
+            prevClick() {
+                if (this.isFirst) {
+                    return;
+                }
+                let liWidth = $("#morPicList li").eq(this.curIndex - 1).outerWidth();
+                this.curLeft -= liWidth;
+                this.curIndex--;
+                this.isLast = (this.picListWidth - this.curLeft <= 1200) ? true : false;
+                this.isFirst = this.curIndex == 0 ? true : false;
+                $("#morPicList").stop().animate({left: "-" + this.curLeft + "px"})
+            },
+            /*下一张图片*/
+            nextClick() {
+                if (this.isLast) {
+                    return;
+                }
+                let liWidth = $("#morPicList li").eq(this.curIndex).outerWidth();
+                this.curLeft += liWidth;
+                this.curIndex++;
+                this.isLast = (this.picListWidth - this.curLeft <= 1200) ? true : false;
+                this.isFirst = this.curIndex == 0 ? true : false;
+                if (this.picListWidth - this.curLeft < 1200) {
+                    //如果显示的图片列表右侧有多余空白，则left设置为this.limitLeft（为了图片列表右侧没有多余空白）
+                    $("#morPicList").stop().animate({left: "-" + this.limitLeft + "px"});
+                } else {
+                    $("#morPicList").stop().animate({left: "-" + this.curLeft + "px"});
+                }
+            },
+        }
+    })
+</script>
+</html>
