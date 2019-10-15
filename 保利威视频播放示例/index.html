@@ -5,15 +5,20 @@
     <title>Title</title>
 </head>
 <body>
-<div id="player"></div>
-<script src="//player.polyv.net/script/player.js"></script>
+<script src="./polyvplayer.min.js"></script>
+<div id="player" style="text-align: center;background: #333;width: 100%;height: 100%"></div>
+
 <script>
     var player = polyvPlayer({
         wrap: '#player',
         width: 800,
-        height: 533,
-        vid: 'e8888b74d1229efec6b4712e17cb6b7a_e',
+        height: 500,
+        vid: "e26803f4a6384f3f548d4f9aa52bd488_e",
+        flash: false, // 默认使用flash插件播放
+        autoplay: true, // 默认自动播放
     });
+
 </script>
+
 </body>
 </html>
